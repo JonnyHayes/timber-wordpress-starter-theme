@@ -1,0 +1,65 @@
+.row{
+	@include make-row();
+
+	&:not(.clearfix){
+		font-size: 0;
+
+		> *{
+			font-size: 1rem;
+		}
+	}
+}
+
+@include make-grid-columns();
+
+.no-gutters{
+	margin-right: 0;
+	margin-left: 0;
+
+	> .col,
+	> [class*="col-"]{
+		margin-right: 0;
+		margin-left: 0;
+	}
+}
+
+.clearfix{
+	> [class*="col-"]{
+		display: block;
+		float: left;
+	}
+}
+
+.container{
+	width: $desktop;
+	margin: 0 auto;
+
+	@media(max-width: $desktop){
+		width: 100%;
+		padding: 5%;
+	}
+}
+
+body.has-sidebar{
+	aside[role="complementary"]{
+		float: right;
+		width: 25%;
+	}
+
+	article[role="article"]{
+		float: left;
+		width: 70%;
+	}
+
+	@media(max-width: $tablet){
+		article[role="article"]{
+			float: none;
+			width: 100%;
+		}
+
+		aside[role="complementary"]{
+			float: none;
+			width: 100%;
+		}
+	}
+}

@@ -1,0 +1,35 @@
+//Variables
+$red: rgb(240, 57, 57);
+$blue: rgb(26, 126, 189);
+$green: rgb(82, 242, 89);
+$yellow: rgb(242, 240, 82);
+$light: rgb(236, 236, 236);
+$medium: rgb(102, 102, 102);
+$dark: rgb(31, 31, 31); //$dark: desaturate(darken($primary, 46%), 78%);
+
+$primary: $red;
+
+$phone: 600px;
+$tablet: 980px;
+$desktop: 1120px;
+
+$grid-columns: 12;
+$grid-gutter-width-base: 20px;
+
+$grid-gutter-widths: (
+	lg: $grid-gutter-width-base,
+	md: $grid-gutter-width-base,
+	sm: $grid-gutter-width-base,
+);
+
+$grid-breakpoints: (
+	lg: $desktop,
+	md: $tablet,
+	sm: $phone,
+);
+
+$container-max-widths: (
+	lg: $desktop * .9375,
+	md: $tablet * .9375,
+	sm: $phone * .9375,
+);

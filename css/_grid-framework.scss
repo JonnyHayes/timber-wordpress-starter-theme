@@ -1,0 +1,109 @@
+// Framework grid generation
+//
+// Used only by Bootstrap to generate the correct number of grid classes given
+// any value of `$grid-columns`.
+@mixin make-grid-columns($columns: $grid-columns, $gutters: $grid-gutter-widths, $breakpoints: $grid-breakpoints){
+	// Common properties for all breakpoints
+	%grid-column{
+		display: inline-block;
+		vertical-align: top;
+		min-height: 1px; // Prevent columns from collapsing when empty
+		@include make-gutters($gutters);
+	}
+
+	@for $i from length($breakpoints)*-1 through -2{
+		$infix: nth(map-keys($breakpoints), abs($i));
+
+		.col-#{$infix}{
+			max-width: 100%;
+		}
+
+		.col-#{$infix}-auto{
+			width: auto;
+		}
+
+		@for $n from 1 through $columns{
+			.col-#{$infix}-#{$n}{
+				@include make-col($n, $columns);
+			}
+		}
+
+		@each $modifier in (pull, push){
+			@for $n from 0 through $columns{
+				.#{$modifier}-#{$infix}-#{$n}{
+					@include make-col-modifier($modifier, $n, $columns);
+				}
+			}
+		}
+		@for $n from 0 through ($columns - 1){
+			@if not ($infix == "" and $n == 0){
+				// Avoid emitting useless .offset-xs-0
+				.offset-#{$infix}-#{$n}{
+					@include make-col-modifier(offset, $n, $columns);
+				}
+			}
+		}
+
+		.no-gutters{
+			@for $n from 1 through $columns{
+				.col-#{$infix}-#{$n}{
+					@include make-col-no-gutter($n, $columns);
+				}
+			}
+		}
+	}
+
+	@each $breakpoint in map-keys($breakpoints){
+		$infix: breakpoint-infix($breakpoint, $breakpoints);
+		// Allow columns to stretch full width below their breakpoints
+		@for $i from 1 through $columns{
+			.col#{$infix}-#{$i}{
+				@extend %grid-column;
+			}
+		}
+
+		.col#{$infix}{
+			@extend %grid-column;
+		}
+
+		@include media-breakpoint-down($breakpoint, $breakpoints){
+			// Provide basic `.col-{bp}` classes for equal-width flexbox columns
+			.col#{$infix}{
+				max-width: 100%;
+			}
+
+			.col#{$infix}-auto{
+				width: auto;
+			}
+			@for $i from 1 through $columns{
+				.col#{$infix}-#{$i}{
+					@include make-col($i, $columns);
+				}
+			}
+			@each $modifier in (pull, push){
+				@for $i from 0 through $columns{
+					.#{$modifier}#{$infix}-#{$i}{
+						@include make-col-modifier($modifier, $i, $columns);
+					}
+				}
+			}
+			// `$columns - 1` because offsetting by the width of an entire row isn't possible
+			@for $i from 0 through ($columns - 1){
+				@if not ($i == 0){
+					// Avoid emitting useless .offset-xs-0
+					.offset#{$infix}-#{$i}{
+						@include make-col-modifier(offset, $i, $columns);
+					}
+				}
+
+				@else{
+					$gutter: map-get($gutters, $breakpoint);
+
+					.offset#{$infix}-#{$i}{
+						margin-left: ($gutter / 2);
+					}
+				}
+			}
+		}
+	}
+}

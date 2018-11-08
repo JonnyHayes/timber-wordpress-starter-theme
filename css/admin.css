@@ -1,0 +1,288 @@
+#repeatable-fieldset-one,
+#event-details{
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#repeatable-fieldset-one thead tr th,
+#event-details thead tr th{
+	text-align: left;
+	padding-bottom: 7px;
+}
+
+#repeatable-fieldset-one tbody tr td,
+#event-details tbody tr td{
+	padding: 14px;
+	border-bottom: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	background: white;
+}
+
+#repeatable-fieldset-one tbody tr td input,
+#event-details tbody tr td input{
+	margin: 8px 0 20px;
+	font-weight: normal;
+}
+
+#event-details tbody tr td label > input[type="checkbox"],
+#event-details tbody tr td label > input[type="radio"]{
+	margin: -4px 4px 0 0;
+}
+
+#repeatable-fieldset-one tbody tr td textarea{
+	margin: 8px 0 0;
+	padding: 10px;
+	font-weight: normal;
+	height: 114px;
+}
+
+#repeatable-fieldset-one tbody tr td .toggle-media{
+	display: block;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+#repeatable-fieldset-one tbody tr td label,
+#event-detailstbody tr td label{
+	font-weight: bold;
+}
+
+#repeatable-fieldset-one tbody tr td img{
+	cursor: pointer;
+}
+
+#repeatable-fieldset-one tbody tr:first-child td,
+#event-details tbody tr:first-child td{
+	border-top: 1px solid #ddd;
+}
+
+#repeatable-fieldset-one tbody tr td:first-child{
+	width: 20px;
+	padding: 0;
+	background-image: url(../images/grip-pattern.jpg);
+	text-indent: -9999px;
+	overflow: hidden;
+	border-left: 1px solid #ddd;
+	border-right: none;
+	box-sizing: border-box;
+	white-space: nowrap;
+	box-shadow:
+		inset -1px 0 1px rgba(0, 0, 0, .1),
+		inset 1px 1px 1px rgba(255, 255, 255, .8);
+	cursor: -webkit-grab;
+	cursor: -moz-grab;
+	cursor: grab;
+}
+
+#repeatable-fieldset-one tbody tr td:first-child:active{
+	cursor: -webkit-grabbing;
+	cursor: -moz-grabbing;
+	cursor: grabbing;
+}
+
+#repeatable-fieldset-one tbody tr td:nth-child(2){
+	width: 14%;
+}
+
+#event-details tbody tr td:first-child{
+	width: 50%;
+	vertical-align: top;
+	border-left: 1px solid #ddd;
+}
+
+#event-details tbody tr td #event_location{
+	width: 100%;
+	padding-top: 30px;
+}
+
+#event-details tbody tr td #repeating-properties{
+	width: 100%;
+	padding-top: 30px;
+}
+
+#event-details tbody tr td #repeating-properties #recurr_days,
+#event-details tbody tr td #repeating-properties #recurr_by{
+	padding: 30px 0;
+}
+
+#event-details tbody tr td #repeating-properties #recurr_days label,
+#event-details tbody tr td #repeating-properties #recurr_by label{
+	margin-right: 10px;
+}
+
+#repeatable-fieldset-one tbody tr td:nth-child(3),
+#event-details tbody tr td:nth-child(2){
+	vertical-align: top;
+}
+
+#repeatable-fieldset-one tbody tr td:nth-child(3) div,
+#event-details tbody tr td:first-child > div{
+	width: 48%;
+	font-weight: normal;
+	float: left;
+}
+
+#repeatable-fieldset-one tbody tr td:nth-child(3) div + div,
+#event-details tbody tr td:first-child > div:nth-child(even){
+	margin-left: 4%;
+}
+
+#repeatable-fieldset-one tbody tr td:last-child{
+	width: 8%;
+	text-align: center;
+}
+
+#repeatable-fieldset-one tbody tr.drag-placeholder{
+	outline: 4px dashed #cacaca;
+	outline-offset: -25px;
+}
+
+#repeatable-fieldset-one tbody tr.drag-placeholder td{
+	background: #e6e6e6;
+	border-top: 20px solid white;
+	border-bottom: 20px solid white;
+	border-right: none;
+	box-shadow: none;
+	height: 220px;
+}
+
+#repeatable-fieldset-one tbody tr.drag-placeholder td:first-child{
+	border-left: 20px solid white;
+}
+
+#repeatable-fieldset-one tbody tr.drag-placeholder td:last-child{
+	border-right: 2px solid white;
+}
+
+#repeatable-fieldset-one tfoot tr th{
+	text-align: left;
+	padding-top: 14px;
+}
+
+#gallery-usage pre{
+	max-width: 100%;
+	white-space: pre-wrap;
+	word-break: break-word;
+	background: #eee;
+	padding: 10px;
+}
+
+#gallery-usage pre xmp{
+	white-space: inherit;
+	margin: 0;
+	display: inline;
+}
+
+#import-google-cal{
+	margin-top: 3px;
+}
+
+#customize-control-phone_number_control{
+	width: 45%;
+	margin-right: 5%;
+	float: left;
+	clear: none;
+}
+
+#customize-control-email_control{
+	width: 50%;
+	float: left;
+	clear: none;
+}
+
+#customize-control-city_control,
+#customize-control-state_control,
+#customize-control-postal_control{
+	float: left;
+	width: 30%;
+	margin-right: 5%;
+	clear: none;
+}
+
+#customize-control-postal_control{
+	margin-right: 0;
+}
+
+#customize-control-company_twitter_control,
+#customize-control-street_address_1_control{
+	padding-top: 12px;
+	border-top: 1px solid #d6d6d6;
+}
+
+#customize-control-logo_control,
+#customize-control-company_gplus_control{
+	padding-bottom: 12px;
+	border-bottom: 1px solid #d6d6d6;
+}
+
+#page-mapping-list{
+	margin-top: 0;
+	margin-left: 18px;
+}
+
+#qtranxs-meta-box-lsb{
+	display: none;
+}
+
+#contact-page-info{
+	width: 100%;
+}
+
+#contact-page-info td input{
+	margin: 8px 0 20px;
+	font-weight: normal;
+}
+
+#contact-page-info td .addr-inline label{
+	float: left;
+	width: 30%;
+	margin-right: 5%;
+	clear: none;
+}
+
+#contact-page-info td .addr-inline label:last-child{
+	margin-right: 0;
+}
+
+#seo-image,
+#facebook-image,
+#twitter-image{
+	float: none;
+	min-height: 0 !important;
+	border: none;
+	display: inline-block;
+}
+
+#seo-title,
+#facebook-title,
+#twitter-title{
+	float: left;
+	clear: none !important;
+	min-height: 0 !important;
+	border: none;
+}
+
+#seo-desc,
+#facebook-desc,
+#twitter-desc{
+	float: left;
+	border: none;
+	clear: left !important;
+}
+
+#seo-instructions,
+#facebook-instructions,
+#twitter-instructions{
+	float: none;
+	border: none;
+	min-height: 0;
+}
+
+#seo-instructions .acf-input,
+#seo-instructions .acf-label label,
+#facebook-instructions .acf-input,
+#facebook-instructions .acf-label label,
+#twitter-instructions .acf-input,
+#twitter-instructions .acf-label label{
+	display: none;
+}

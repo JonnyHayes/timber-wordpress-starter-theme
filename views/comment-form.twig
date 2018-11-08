@@ -1,0 +1,40 @@
+<div class="comment-form">
+	<h3>{{ _e('Add comment', 'mvnp_basic') }}</h3>
+
+	<form class="comment-form" method="post" action="{{ site.url~'/wp-comments-post.php' }}">
+		{% if user %}
+			<input name="email" type="hidden" value="{{ user.email }}">
+			<input name="author" type="hidden" value="{{ user.name }}">
+			<input name="url" type="hidden" value="{{ user.link }}">
+		{% else %}
+			<div>
+				<div class="input-wrap">
+					<input id="email{{ loop ? '-' ~ loop.index0 : '-main' }}" name="email" type="text" required>
+					<label for="email{{ loop ? '-' ~ loop.index0 : '-main' }}">{{ _e('Email', 'mvnp_basic') }}</label>
+				</div>
+				<div class="input-wrap">
+					<input id="author{{ loop ? '-' ~ loop.index0 : '-main' }}" name="author" type="text" required>
+					<label for="author{{ loop ? '-' ~ loop.index0 : '-main' }}">{{ _e('Username', 'mvnp_basic') }}</label>
+				</div>
+				<div class="input-wrap">
+					<input id="url{{ loop ? '-' ~ loop.index0 : '-main' }}" name="url" type="text">
+					<label for="url{{ loop ? '-' ~ loop.index0 : '-main' }}">{{ _e('Web page', 'mvnp_basic') }}</label>
+				</div>
+			</div>
+		{% endif %}
+
+		<div class="input-wrap textarea no-ime">
+			<textarea id="comment-{{ comment.ID | default('0') }}" name="comment" cols="60" rows="3" placeholder="{{ _e('Comment text', 'mvnp_basic') }}"></textarea>
+			<label for="comment-{{ comment.ID | default('0') }}">{{ _e('Comment', 'mvnp_basic') }}</label>
+		</div>
+
+		<input id="comment_post_ID-{{ comment.ID | default('0') }}" name="comment_post_ID" type="hidden" value="{{ post.id }}">
+		<input id="comment_parent-{{ comment.ID | default('0') }}" name="comment_parent" type="hidden" value="{{ comment.ID | default('0') }}">
+
+		<div>
+			<button class="btn btn-primary" name="Submit" type="submit">{{ _e('Submit', 'mvnp_basic') }}</button>
+			<button class="btn btn-dark" type="reset">{{ _e('Cancel', 'mvnp_basic') }}</button>
+			<p>{{ _e('Your comment will be revised by the site if needed.', 'mvnp_basic') }}</p>
+		</div>
+	</form>
+</div>

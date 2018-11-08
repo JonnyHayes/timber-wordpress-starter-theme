@@ -1,0 +1,13 @@
+{% if menu %}
+	<ul class="clearfix" role="menubar">
+	{% for item in menu %}
+		<li class="{{ item.classes | join(' ') }}">
+			<a href="{{ item.get_link }}" {% if item.target %}target="{{ item.target }}"{% endif %} {% if item.attr_title %}title="{{ item.attr_title }}"{% endif %} role="menuitem">{{ item }}</a>
+			{% include "menu.twig" with {'menu': item.get_children} %}
+		</li>
+	{% endfor %}
+	{% if is_logged_in %}
+		<li><a href="{{ user_link }}" title="{{ _e('My Page', 'mvnp_basic') }}" role="menuitem">{{ _e('My Page', 'mvnp_basic') }}</a></li>
+	{% endif %}
+	</ul>
+{% endif %}

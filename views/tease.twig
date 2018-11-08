@@ -1,0 +1,11 @@
+<section id="tease-{{ post.ID }}" class="tease-{{ post.post_type }} {{sidebar ? '':'container'}}">
+	{% block content %}
+		<header>
+			<h2><a href="{{post.link}}" title="{{ post.title }}">{{ post.title }}</a></h2>
+		</header>
+		<p>{{ post.preview.length(25).read_more('') }} <a href="{{post.link}}" title="{{ _e('Read more about', 'mvnp_basic') ~ ' ' ~ post.title }}">{{ _e('Read More', 'mvnp_basic') }}</a></p>
+		{% if post.get_thumbnail %}
+			<img class="lazy-placeholder" src="{{ post.thumbnail.src('lazy_orginal_ratio') | get_webp}}" data-src="{{post.thumbnail | get_webp }}" alt="{{ post.get_thumbnail.alt }}">
+		{% endif %}
+	{% endblock %}
+</section>

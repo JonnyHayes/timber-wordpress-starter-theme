@@ -1,0 +1,120 @@
+ {% block html_head_container %}
+	<!doctype html>
+	<!--[if lt IE 7]><html class="ie ie6 lt-ie9 lt-ie8 lt-ie7" {{ site.language_attributes }} xml:lang="{{ site.language }}"> <![endif]-->
+	<!--[if IE 7]><html class="ie ie7 lt-ie9 lt-ie8" {{ site.language_attributes }} xml:lang="{{ site.language }}"> <![endif]-->
+	<!--[if IE 8]><html class="ie ie8 lt-ie9" {{ site.language_attributes }} xml:lang="{{ site.language }}"> <![endif]-->
+	<!--[if gt IE 8]><!--><html {{ site.language_attributes }} xml:lang="{{ site.language }}"> <!--<![endif]-->
+	{% include 'html-header.twig' %}
+	{% block head %}
+	{% endblock %}
+	{% block microdata %}
+	<script type="application/ld+json">
+	{
+		"@context": "http://schema.org",
+		"@type": "WebPage",
+		"@id": "{{ post.link }}",
+		"name": "{{ post.get_field('seo_title') ? post.get_field('seo_title') : (post.title ? post.title : title) }}",
+		"description": "{{ post.get_field('seo_description') ? post.get_field('seo_description') : post.post_content | excerpt(30) }}",
+		{% if post.thumbnail %}
+		"image": {
+			"@type": "ImageObject",
+			"url": "{{ post.get_field('seo_image') ? TimberImage(post.get_field('seo_image')).src('medium') : post.thumbnail.src('medium') }}",
+			"width": "{{ post.get_field('seo_image') ? TimberImage(post.get_field('seo_image')).sizes.medium.width : post.thumbnail.sizes.medium.width }}",
+			"height": "{{ post.get_field('seo_image') ? TimberImage(post.get_field('seo_image')).sizes.medium.height : post.thumbnail.sizes.medium.height }}"
+		},
+		{% endif %}
+		"url": "{{ post.link }}"
+	}
+	</script>
+	{% endblock %}
+{% endblock %}
+</head>
+<body class="no-scroll {{ body_class }}{{ sidebar ? ' has-sidebar' }}" data-template="base.twig">
+	{% if theme.theme_mods.google_tags_code %}
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ theme.theme_mods.google_tags_code }}"
+	width="0" height="0" style="display:none;visibility:hidden"></iframe></noscript>
+	{% endif %}
+	<div id="fullscreen-loading">
+		{% include 'loading.twig' %}
+	</div>
+	<div id="backdrop">
+		<dialog id="modal" class="clearfix" role="dialog" aria-live="assertive">
+			<div id="modal-close">&#10006;&#xFE0E;</div>
+			<div id="modal-content">
+				{% include 'loading.twig' %}
+				<div><strong>{{ _e('Loading', 'mvnp_basic') }}&hellip;</strong></div>
+			</div>
+		</dialog>
+	</div>
+	<header role="banner" class="blur">
+		{% block header %}
+			<div class="container clearfix">
+				<div id="site-title"><a href="{{ site.url }}" rel="home">{{ site.name }}</a></div>
+				<nav role="navigation">
+					<div class="close-sidebar" aria-label="Close">&#10006;&#xFE0E;</div>
+					{% include "menu.twig" with {'menu': main_menu.get_items} %}
+				</nav>
+				{% if available_languages %}
+					<div class="fr">
+						<label for="language-switcher">{{ _e('Language', 'mvnp_basic') }}</label>
+						<select id="language-switcher">
+							<option value="en" {{ site.language == 'en-US' ? 'selected' }}>English</option>
+							{% for key, name in available_languages %}
+							<option value="{{ key }}" {{ site.language == key ? 'selected' }}>{{ name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				{% endif %}
+				<button id="burger">&equiv;&#xFE0E;</button>
+			</div>
+		{% endblock %}
+	</header>
+	<main id="{% if post.type == 'post' %}{{ post.type ~ post.ID }}{% elseif function('is_archive') %}archive-{{ function('get_post_type') | lower }}{% elseif function('is_home') %}blog-page{% elseif function('is_search') %}search-results{% elseif function('is_front_page') %}front-page{% elseif function('is_404') %}error-404{% else %}{{ post.type ~ '-' ~ post.slug }}{% endif %}" role="main" class="blur">
+	{% block hero %}
+	{% endblock %}
+		<div id="main-content" class="{{ sidebar ? 'container clearfix' }}">
+			<article role="article">
+				{{ breadcrumbs }}
+				<header class="{{ sidebar ? '':'container' }}">
+					{% if post.title %}
+						<h1>{{ post.title }}</h1>
+					{% elseif title %}
+						<h1>{{ title }}</h1>
+					{% endif %}
+					{% if post.post_type == 'post' %}
+						<h3>{{ _e('By', 'mvnp_basic') }} <a href="{{ post.author.path }}" rel="author" title="{{ __('%s, Author', 'mvnp_basic') | format(post.author.name) }}">{{ post.author.name }}</a> &bull; <time datetime="{{ post.post_date | date('Y-m-d\\TH:i') }}">{{ post.post_date | date }}</time></h3>
+					{% endif %}
+					{% if post.thumbnail and post.post_type == 'post' or post.post_type == 'event' %}
+						<img class="lazy-placeholder" src="{{ post.thumbnail.src('lazy_orginal_ratio') | get_webp }}" data-src="{{ post.thumbnail.src | get_webp }}" alt="{{ post.get_thumbnail.alt }}">
+					{% endif %}
+				</header>
+				{% block content %}
+					{{ _e('Sorry, no content', 'mvnp_basic') }}
+				{% endblock %}
+			</article>
+			{% if sidebar %}
+			<aside role="complementary">
+				<div class="sidebar-inner">
+					{% include 'sidebar.twig' %}
+				</div>
+			</aside>
+			{% endif %}
+		</div>
+	</main>
+	<footer role="contentinfo" class="blur">
+		{% include 'footer.twig' %}
+	</footer>
+	<div id="scroll-to-top" title="Scroll to Top">&#x2305;</div>
+	<script type="text/javascript" id="script-site-vars">
+		var site = JSON.parse('{{ site | json_encode | e('js') }}'),
+			post = JSON.parse('{{ post | json_encode | e('js') }}'),
+			gaCode = '{{ theme.theme_mods.google_analytics_code }}',
+			gtmCode = '{{ theme.theme_mods.google_tags_code }}',
+			pixelCode = '{{ theme.theme_mods.fb_pixel_code }}',
+			script_site_vars = document.getElementById('script-site-vars');
+
+			script_site_vars.parentNode.removeChild(script_site_vars);
+	</script>
+	{{ function('wp_footer') }}
+</body>
+</html>

@@ -1,0 +1,42 @@
+{% extends "base.twig" %}
+
+{% block microdata %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "QAPage",
+	"@id": "{{ post.link }}",
+	"name": "{{ post.get_field('seo_title') ? post.get_field('seo_title') : (post.title ? post.title : title) }}",
+	"description": "{{ post.get_field('seo_description') ? post.get_field('seo_description') : post.post_content | excerpt(30) }}",
+	{% if post.thumbnail %}
+	"image": {
+		"@type": "ImageObject",
+		"url": "{{ post.get_field('seo_image') ? TimberImage(post.get_field('seo_image')).src('medium') : post.thumbnail.src('medium') }}",
+		"width": "{{ post.get_field('seo_image') ? TimberImage(post.get_field('seo_image')).sizes.medium.width : post.thumbnail.sizes.medium.width }}",
+		"height": "{{ post.get_field('seo_image') ? TimberImage(post.get_field('seo_image')).sizes.medium.height : post.thumbnail.sizes.medium.height }}"
+	},
+	{% endif %}
+	"url": "{{ post.link }}"
+}
+</script>
+{% endblock %}
+
+{% block content %}
+	<section class="post-type-{{ post.post_type }} {{ sidebar ? '':'container' }}">
+		{{ post.content }}
+		{% if post.children %}
+			<ul>
+			{% for child in post.children %}
+				{% if child.children %}
+					<li><a href="{{ child.link }}">{{ child.title }}</a></li>
+				{% else %}
+					<li class="faq-slide-content" itemscope itemtype="http://schema.org/Question">
+						<h4 itemprop="name">{{ child.title }}</h4>
+						<div itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">{{ child.get_content }}</div>
+					</li>
+				{% endif %}
+			{% endfor %}
+			</ul>
+		{% endif %}
+	</section>
+{% endblock %}

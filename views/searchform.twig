@@ -1,0 +1,7 @@
+<form id="searchform" class="row" role="search" method="get" action="{{ site.url | request_uri }}" target="_top">
+	<div class="input-wrap col-md-8 col-sm-12">
+		<input id="s" name="s" type="search" value="{{ fn('get_search_query') }}" placeholder="{{ _e('Search term', 'mvnp_basic') }}" required="required">
+		<label for="s">{{ _e('Search', 'mvnp_basic') }}</label>
+	</div>
+	<button class="btn btn-primary col-md-4 col-sm-12" title="{{ _e('Submit', 'mvnp_basic') }}" type="submit">{{ _e('Submit', 'mvnp_basic') }}</button>
+</form>

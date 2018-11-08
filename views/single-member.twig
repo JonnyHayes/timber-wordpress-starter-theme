@@ -1,0 +1,17 @@
+{% extends "base.twig" %}
+
+{% block head %}
+<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% block content %}
+	<section class="post-type-{{ post.post_type }} {{ sidebar ? '':'container' }}">
+		{% if not is_logged_in %}
+			<h1>{{ _e('You must be logged in to view your page', 'mvnp_basic') }}</h1>
+		{% elseif user.ID == post.post_author or user.caps.administrator is defined %}
+			{{ post.content }}
+		{% else %}
+			<h1>{{ _e('You are not allowed to view this page', 'mvnp_basic') }}</h1>
+		{% endif %}
+	</section>
+{% endblock %}

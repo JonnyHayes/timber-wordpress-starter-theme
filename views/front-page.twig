@@ -1,0 +1,93 @@
+{% extends "base.twig" %}
+
+{% block microdata %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": [
+		"WebSite",
+		"Organization"
+	],
+	"@id": "{{ site.url }}/",
+	"url": "{{ site.url }}/",
+	"name": "{{ post.get_field('seo_title') ? post.get_field('seo_title') : (post.title ? post.title : title) }}",
+	"description": "{{ post.get_field('seo_description') ? post.get_field('seo_description') : post.post_content | excerpt(30) }}",
+	{% if theme.theme_mods.street_address_1 and theme.theme_mods.city and theme.theme_mods.state and theme.theme_mods.postal %}
+	"address": {
+		"@type": "PostalAddress",
+		"addressLocality": "{{ theme.theme_mods.city }}",
+		"addressRegion": "{{ theme.theme_mods.state }}",
+		"streetAddress": "{{ theme.theme_mods.street_address_1 ~ (theme.theme_mods.street_address_2 ? ', ' ~ theme.theme_mods.street_address_2) }}",
+		"postalCode": "{{ theme.theme_mods.postal }}"
+	},
+	{% endif %}
+	{% if theme.theme_mods.phone_number %}
+	"telephone": "{{ theme.theme_mods.phone_number }}",
+	{% endif %}
+	{% if theme.theme_mods.email %}
+	"email": "{{ theme.theme_mods.email }}",
+	{% endif %}
+	"image": {
+		"@type": "ImageObject",
+		"url": "{{ post.get_field('seo_image') ? TimberImage(post.get_field('seo_image')).src('medium') : post.thumbnail.src('medium') }}",
+		"width": "{{ post.get_field('seo_image') ? TimberImage(post.get_field('seo_image')).sizes.medium.width : post.thumbnail.sizes.medium.width }}",
+		"height": "{{ post.get_field('seo_image') ? TimberImage(post.get_field('seo_image')).sizes.medium.height : post.thumbnail.sizes.medium.height }}"
+	},
+	"potentialAction": {
+		"@type": "SearchAction",
+		"target": "{{ site.url }}/search/{search_term_string}",
+		"query-input": "required name=search_term_string"
+	},
+	"logo": {
+		"@type": "ImageObject",
+		"url": "{{ theme.theme_mods.logo }}"
+	},
+	"sameAs": [
+		{% if theme.theme_mods.twitter_link %}
+		"{{ theme.theme_mods.twitter_link }}",
+		{% endif %}
+		{% if theme.theme_mods.facebook_link %}
+		"{{ theme.theme_mods.facebook_link }}",
+		{% endif %}
+		{% if theme.theme_mods.gplus_link %}
+		"{{ theme.theme_mods.gplus_link }}",
+		{% endif %}
+		{% if theme.theme_mods.instagram_link %}
+		"{{ theme.theme_mods.instagram_link }}"
+		{% endif %}
+	]
+}
+</script>
+{% endblock %}
+
+{% block hero %}
+<div id="home-slider">
+	{% for image in gallery.gallery_images %}
+	<div>
+		{% if image.iframe %}
+		<iframe title="{{ image.name }}" src="{{ image.iframe }}" width="1920" height="600"></iframe>
+		{% else %}
+		<figure class="slide">
+			<picture>
+				<source media="(max-width: 650px)" srcset="{{ TimberImage(image.props).src('lazy_fullscreen_slider') | get_webp }}" data-src="{{ TimberImage(image.props).src('mobile_fullscreen_slider') | get_webp }}">
+				<source media="(min-width: 980px)" srcset="{{ TimberImage(image.props).src('lazy_fullscreen_slider') | get_webp }}" data-src="{{ TimberImage(image.props).src('fullscreen_slider') | get_webp }}">
+				<img class="lazy-placeholder" src="{{ TimberImage(image.props).src('lazy_fullscreen_slider') | get_webp }}" data-src="{{ TimberImage(image.props).src('fullscreen_slider') | get_webp }}" alt="{{ image.props.alt }}" width="{{ image.props.sizes.fullscreen_slider.width }}">
+			</picture>
+			<figcaption class="container">
+				<div>
+					<h2>{{ image.name }}</h2>
+					<p>{{ image.copy }} <a href="{{ image.link }}" title="{{ image.name }}">{{ _e('More&hellip;', 'mvnp_basic') }}</a></p>
+				</div>
+			</figcaption>
+		</figure>
+		{% endif %}
+	</div>
+	{% endfor %}
+</div>
+{% endblock %}
+
+{% block content %}
+	<section class="post-type-{{ post.post_type }} front-page {{ sidebar ? '':'container' }}">
+		{{ post.content }}
+	</section>
+{% endblock %}

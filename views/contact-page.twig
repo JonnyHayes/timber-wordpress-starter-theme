@@ -1,0 +1,54 @@
+{% extends "base.twig" %}
+
+{% block head %}
+<script>
+	var contactMapLocation = '{{ theme.theme_mods.street_address_1 ~ (theme.theme_mods.street_address_2 ? ', ' ~ theme.theme_mods.street_address_2) ~ ' ' ~ theme.theme_mods.city ~ ', ' ~ theme.theme_mods.state ~ ' ' ~ theme.theme_mods.postal }}';
+</script>
+{% endblock %}
+
+{% block microdata %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "ContactPage",
+	"@id": "{{ post.link }}",
+	"name": "{{ post.get_field('seo_title') ? post.get_field('seo_title') : (post.title ? post.title : title) }}",
+	"description": "{{ post.get_field('seo_description') ? post.get_field('seo_description') : post.post_content | excerpt(30) }}",
+	{% if post.thumbnail %}
+	"image": {
+		"@type": "ImageObject",
+		"url": "{{ post.get_field('seo_image') ? TimberImage(post.get_field('seo_image')).src('medium') : post.thumbnail.src('medium') }}",
+		"width": "{{ post.get_field('seo_image') ? TimberImage(post.get_field('seo_image')).sizes.medium.width : post.thumbnail.sizes.medium.width }}",
+		"height": "{{ post.get_field('seo_image') ? TimberImage(post.get_field('seo_image')).sizes.medium.height : post.thumbnail.sizes.medium.height }}"
+	},
+	{% endif %}
+	"url": "{{ post.link }}"
+}
+</script>
+{% endblock %}
+
+{% block content %}
+	<section class="{{ sidebar ? '':'container' }}">
+		<div class="row">
+			<div id="contact-map" class="col-lg-6 col-sm-12">Google Map</div>
+			<div id="contact-address" class="col-lg-6 col-sm-12">
+				{% if theme.theme_mods.phone_number %}
+					<p><a href="tel:{{ theme.theme_mods.phone_number | replace({' ':''}) }}" title="{{ _e('Call us at ', 'mvnp_basic') ~ theme.theme_mods.phone_number }}">{{ theme.theme_mods.phone_number }}</a></p>
+				{% endif %}
+				{% if theme.theme_mods.email %}
+					<p><a href="mailto:{{ theme.theme_mods.email }}" title="{{ _e('Email us at ', 'mvnp_basic') ~ theme.theme_mods.email }}">{{ theme.theme_mods.email }}</a></p>
+				{% endif %}
+				{% if theme.theme_mods.street_address_1 and theme.theme_mods.city and theme.theme_mods.state and theme.theme_mods.postal %}
+					<address><a href="https://maps.google.com/maps/place/{{ (theme.theme_mods.street_address_1 ~ (theme.theme_mods.street_address_2 ? ' ' ~ theme.theme_mods.street_address_2) ~ ' ' ~ theme.theme_mods.city ~ ' ' ~ theme.theme_mods.state ~ ' ' ~ theme.theme_mods.postal) | url_encode }}" target="_blank">
+
+					{{ theme.theme_mods.street_address_1 ~ (theme.theme_mods.street_address_2 ? ', ' ~ theme.theme_mods.street_address_2) }}<br>
+					{{ theme.theme_mods.city ~ ', ' ~ theme.theme_mods.state ~ ' ' ~ theme.theme_mods.postal }}
+					</a></address>
+				{% endif %}
+			</div>
+		</div>
+	</section>
+	<section class="post-type-{{ post.post_type }} {{ sidebar ? '':'container' }}">
+		{{ post.content }}
+	</section>
+{% endblock %}

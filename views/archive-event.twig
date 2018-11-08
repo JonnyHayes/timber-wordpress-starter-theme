@@ -1,0 +1,78 @@
+{% extends "base.twig" %}
+
+{% block head %}
+<link href="{{ post.link }}" rel="canonical">
+{% endblock %}
+
+{% block content %}
+	<section class="{{ sidebar ? '':'container' }}">
+		<div id ="event-categories">
+			<a class="event-category selected" href="{{ post.link }}" data-category="" title="{{ _e('All Events', 'mvnp_basic') }}" data-target="event-list">{{ _e('All Events', 'mvnp_basic') }}</a>
+			{% for event_category in event_categories %}
+				<a class="event-category" href="{{ site.link ~ '/' ~ event_category.taxonomy ~ '/' ~ event_category.slug }}" rel="tag" title="{{ event_category.name }}" data-category="{{ event_category.slug }}" data-target="event-list">{{ event_category.name }}</a>
+			{% endfor %}
+		</div>
+		<div class="row">
+			<div class="col-md-9 col-sm-12 calendar-holder">
+				<h2 id="events-month" data-target="event-list">{{ month | date('F Y') }}</h2>
+				<div class="calendar calendar-monthly">
+					<div class="cal-header">
+						<div class="nav prev">&#8592;</div>
+						<div class="nav next">&#8594;</div>
+						<div class="date">Year</div>
+					</div>
+					<div class="body clearfix row">Months</div>
+				</div>
+			</div>
+			<div id="event-actions" class="col-md-3 col-sm-12">
+				<button id="event-prev" class="event-navigation btn btn-dark" data-target="event-list" title="{{ _e('Previous month', 'mvnp_basic') }}">{{ _e('Prev.', 'mvnp_basic') }}</button>
+				<button id="event-next" class="event-navigation btn btn-dark" data-target="event-list" title="{{ _e('Next month', 'mvnp_basic') }}">{{ _e('Next', 'mvnp_basic') }}</button>
+			</div>
+		</div>
+		<ul id="event-list" class="row clearfix" aria-live="assertive" aria-atomic="true">
+			{% for post in posts %}
+				<li class="col-lg-4 col-md-6 col-sm-12" itemscope itemtype="http://schema.org/Event">
+					{% if fn('has_post_thumbnail', post.ID) %}
+					<a href="{{ fn('get_permalink', post.ID) }}?start={{ post.start_date }}&end={{ post.end_date }}" title="{{ post.post_title }}" aria-labelledby="{{ post.post_title | replace({' ': '-'}) | lower }}-{{ post.start_date | date('Y-m-d\\TH:i') }}">
+						<img class="lazy-placeholder"
+							src="{{ fn('get_the_post_thumbnail_url', post.ID, 'lazy_orginal_ratio') | get_webp }}"
+							data-src="{{ fn('get_the_post_thumbnail_url', post.ID, 'medium') | get_webp }}"
+							alt="{{ fn('get_post_meta', fn('get_post_thumbnail_id', post.ID), '_wp_attachment_image_alt', true) }}"
+							width="300"
+							itemprop="image">
+					</a>
+					{% endif %}
+					<h3 id="{{ post.post_title | replace({' ': '-'}) | lower }}-{{ post.start_date | date('Y-m-d\\TH:i') }}" itemprop="name"><a href="{{ fn('get_permalink', post.ID) }}?start={{ post.start_date }}&end={{ post.end_date }}" title="{{ post.post_title }}">{{ post.post_title }}</a></h3>
+					<div class="event-location" itemprop="location" itemscope itemtype="http://schema.org/Place">
+						{% if post.location and post.location != '' %}
+							<h4 itemprop="{{ post.location_name ? 'name' : 'address' }}">{{ post.location_name ? post.location_name : post.location }}</h4>
+							{% if post.location_name %}
+							<h5 itemprop="address">{{ post.location }}</h5>
+							{% endif %}
+						{% else %}
+							<h4 itemprop="address">{{ _e('This event has no location', 'mvnp_basic') }}</h4>
+						{% endif %}
+					</div>
+					<meta itemprop="startDate" content="{{ post.start_date | date('Y-m-d\\TH:i') }}">
+					<meta itemprop="endDate" content="{{ post.end_date | date('Y-m-d\\TH:i') }}">
+					<h6>
+						{% if post.start_date | date('mdY') == post.end_date | date('mdY') %}
+							<time datetime="{{ post.start_date | date('Y-m-d\\TH:i') }}">{{ post.start_date | date(post.all_day ? 'D n/d/y' : 'D n/d/y g:ia') }}</time>
+							{% if post.start_date | date('gia') != post.end_date | date('gia') %}
+								- <time datetime="{{ post.end_date | date('Y-m-d\\TH:i') }}">{{ post.end_date | date('g:ia') }}</time>
+							{% endif %}
+						{% else %}
+							<time datetime="{{ post.start_date | date('Y-m-d\\TH:i') }}">{{ post.start_date | date(post.all_day ? 'D n/d/y' : 'D n/d/y g:ia') }}</time>
+							-
+							<time datetime="{{ post.end_date | date('Y-m-d\\TH:i') }}">{{ post.end_date | date(post.all_day ? 'D n/d/y' : 'D n/d/y g:ia') }}</time>
+						{% endif %}
+					</h6>
+					{% for event_category in fn('wp_get_post_terms', post.ID, 'event-category') %}
+						<a class="event-category" href="{{ site.link ~ '/' ~ event_category.taxonomy ~ '/' ~ event_category.slug }}" rel="tag" title="{{ event_category.name }}" data-category="{{ event_category.slug }}" data-target="event-list">{{ event_category.name }}</a>
+					{% endfor %}
+					<p itemprop="description">{{ post.post_content | excerpt(30) }}</p>
+				</li>
+			{% endfor %}
+		</ul>
+	</section>
+{% endblock %}

@@ -1,0 +1,47 @@
+{
+	"name": "basic",
+	"theme_name": "Starter Theme",
+	"version": "0.0.1",
+	"description": "Basic starter theme",
+	"main": "index.js",
+	"scripts": {
+		"build-templates": "./bin/build-templates.sh"
+	},
+	"repository": "git@github.com:JonnyHayes/timber-wordpress-starter-theme.git",
+	"bugs": {
+		"url": "https://github.com/JonnyHayes/timber-wordpress-starter-theme.git",
+		"email": "jonnyhayes@gmail.com"
+	},
+	"directories": {
+		"bin": "./bin"
+	},
+	"text_domain": "basic",
+	"default_language": "en_US",
+	"author": "Jon Hayes",
+	"license": "ISC",
+	"license_url": "https://opensource.org/licenses/ISC",
+	"devDependencies": {
+		"eslint": "^5.5.0",
+		"eslint-plugin-html": "^4.0.5",
+		"eslint-plugin-import": "^2.14.0",
+		"eslint-plugin-promise": "^4.0.0",
+		"eslint-plugin-standard": "^4.0.0",
+		"gulp": "^4.0.0",
+		"gulp-clean-css": "^3.10.0",
+		"gulp-composer": "^0.4.5",
+		"gulp-concat": "^2.6.1",
+		"gulp-debug": "^4.0.0",
+		"gulp-header": "^2.0.5",
+		"gulp-if": "^2.0.2",
+		"gulp-jsdoc-to-markdown": "^1.2.2",
+		"gulp-rename": "^1.4.0",
+		"gulp-rtlcss": "^1.2.0",
+		"gulp-sass": "^4.0.1",
+		"gulp-sourcemaps": "^2.6.4",
+		"gulp-uglify": "^3.0.1",
+		"gulp-wp-pot": "^1.3"
+	},
+	"dependencies": {
+		"npm": "^6.4.1"
+	}
+}

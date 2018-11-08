@@ -1,0 +1,53 @@
+js/main.min.js
+style.css
+style-rtl.css
+*.map
+.tags
+node_modules/
+css/views/*.css
+languages/*.pot
+php/vendor/
+/bin/pngquant
+/bin/jpeg-recompress
+/bin/cwebp
+/bin/gif2webp
+/doc/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ignore all files that start with ~
+~*
+
+# ignore Editor files
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+*.codekit3
+
+# ignore log files and databases
+*.log
+*.sql
+*.sqlite
+
+# ignore packaged files
+*.7z
+*.dmg
+*.gz
+*.gzip
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Ignore git management scripts
+Git.php
+git*
+post-receive.php

@@ -1,0 +1,103 @@
+@mixin button-color($color: $light){
+	background: white;
+	color: $color;
+	border-color: $color;
+
+	&:not(:disabled):hover{
+		background: white;
+		color: lighten($color, 7%);
+		border-color: lighten($color, 7%);
+	}
+
+	&:disabled{
+		color: rgba(0, 0, 0, .25);
+		border-color: rgba(0, 0, 0, .25);
+		cursor: not-allowed;
+
+		&:active{
+			top: 0;
+			border-bottom-width: .2em;
+			margin-bottom: 0;
+		}
+
+		&:hover{
+			color: rgba(0, 0, 0, .25);
+			border-color: rgba(0, 0, 0, .25);
+		}
+	}
+}
+
+.btn{
+	font-size: 1em;
+	font-weight: 700;
+	text-transform: capitalize;
+	text-align: center;
+	text-decoration: none;
+	padding: .5em 2%;
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	border: 2px solid;
+	-webkit-touch-callout: none;
+	@include button-color($medium);
+	@include vendor-prefix(user-select, 'none');
+
+	&:active{
+		top: 2px;
+	}
+
+	&:focus{
+		outline: 1px solid lighten($blue, 28%);
+		outline-offset: 1px;
+	}
+
+	&.btn-primary{
+		@include button-color($primary);
+	}
+
+	&.btn-green{
+		@include button-color($green);
+	}
+
+	&.btn-blue{
+		@include button-color($blue);
+	}
+
+	&.btn-yellow{
+		@include button-color($yellow);
+	}
+
+	&.btn-red{
+		@include button-color($red);
+	}
+
+	&.btn-dark{
+		@include button-color($dark);
+	}
+
+	&.btn-inverted{
+		@include button-color(white);
+
+		background: transparent;
+
+		&:not(:disabled):hover{
+			background: transparent;
+		}
+
+		&:disabled{
+			color: rgba(255, 255, 255, .25);
+			border-color: rgba(255, 255, 255, .25);
+
+			&:hover{
+				color: rgba(255, 255, 255, .25);
+				border-color: rgba(255, 255, 255, .25);
+			}
+		}
+	}
+}
+
+@-moz-document url-prefix(){
+	.btn{
+		font-size: 1em;
+	}
+}

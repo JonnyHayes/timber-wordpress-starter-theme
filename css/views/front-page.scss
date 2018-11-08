@@ -1,0 +1,34 @@
+@import "css/mixins";
+
+.bx-wrapper{
+	margin-bottom: 0;
+	
+	#home-slider{
+		iframe{
+			border: none;
+		}
+
+		figure{
+			figcaption{
+				> div{
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					width: 25vw;
+					padding: 5% 2em 0;
+					background: white;
+				}
+			}
+		}
+	}
+
+	.bx-pager.bx-default-pager{
+		position: static;
+		background: $dark;
+		padding: 1.5em 0;
+
+		a{
+			background: white;
+		}
+	}
+}

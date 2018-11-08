@@ -1,0 +1,40 @@
+{% extends "base.twig" %}
+
+{% block head %}
+<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+{% block microdata %}
+{% endblock %}
+
+{% block content %}
+	<section class="post-type-{{ post.post_type }} {{ sidebar ? '':'container' }}">
+		{% if not is_logged_in or not user.caps.administrator is defined%}
+			<h1>{{ _e('You are not allowed to view this page', 'mvnp_basic') }}</h1>
+		{% elseif user.caps.administrator is defined %}
+			<ul class="user-list">
+				{% for post in posts %}
+					<li><a href="{{ post.link }}">{{ post.title }}</a></li>
+				{% endfor %}
+			</ul>
+			<div class="pagination archive-pagination">
+				{% if pagination.prev %}
+					<a class="btn btn-primary pagination-navigation prev {{ pagination.prev.link | length ? '' : 'invisible' }}" href="{{ pagination.prev.link }}">Prev</a>
+				{% endif %}
+				<ul>
+					{% for page in pagination.pages %}
+						<li>
+							{% if page.link %}
+								<a class="btn btn-dark {{ page.class }}" href="{{ page.link }}">{{ page.title }}</a>
+							{% else %}
+								<span class="btn btn-primary {{ page.class }}">{{ page.title }}</span>
+							{% endif %}
+						</li>
+					{% endfor %}
+				</ul>
+				{% if pagination.next %}
+					<a class="btn btn-primary pagination-navigation next {{ pagination.next.link | length ? '' : 'invisible' }}" href="{{ pagination.next.link }}">Next</a>
+				{% endif %}
+			</div>
+		{% endif %}
+	</section>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.twig" %}
+
+{% block head %}
+<link href="{{ post.link }}" rel="canonical">
+{% endblock %}
+
+{% block content %}
+	<img src="{{ author.avatar }}" alt="{{ author.first_name ? author.first_name : author.user_nicename}}'s Picture">
+	{% for post in posts %}
+		{% include ["tease-" ~ post.post_type ~ ".twig", "tease.twig"] %}
+	{% endfor %}
+{% endblock %}

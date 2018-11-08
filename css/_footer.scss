@@ -1,0 +1,150 @@
+footer[role="contentinfo"]{
+	color: white;
+	background: $dark;
+
+	> div:first-child{
+		padding-top: 2em;
+		padding-bottom: 2em;
+	}
+
+	h3{
+		margin-top: 0;
+	}
+
+	a{
+		color: white;
+
+		&:focus{
+			outline: none;
+			background: white;
+			color: $dark;
+		}
+
+		&:active{
+			color: white;
+			background: none;
+			text-decoration: underline;
+		}
+
+		&[target="_blank"]{
+			&:after{
+				content: none;
+			}
+		}
+	}
+
+	nav{
+		ul{
+			list-style: none;
+			margin-left: 0;
+			padding-left: 0;
+
+			li{
+				margin-bottom: .5em;
+
+				&:last-child{
+					margin-bottom: 0;
+				}
+
+				a{
+					text-decoration: none;
+
+					&:hover{
+						text-decoration: underline;
+						text-decoration-skip: ink;
+						text-decoration-skip-ink: auto;
+					}
+
+					&.social-icon{
+						font-family: fontello;
+						font-size: 2em;
+						margin-right: .5em;
+						position: relative;
+						@include vendor-prefix(transition, 'color .3s, top .3s');
+
+						&:last-child{
+							margin-right: 0;
+						}
+
+						&:hover{
+							color: $primary;
+							text-decoration: none;
+						}
+
+						&:focus{
+							outline: 1px solid white;
+							outline-offset: 1px;
+							color: white;
+							background: none;
+							text-decoration: none;
+						}
+
+						&:active{
+							outline: none;
+							color: $primary;
+							top: 2px;
+							background: none;
+							text-decoration: none;
+						}
+					}
+				}
+
+				ul{
+					margin: .5em 0 0 .5em;
+				}
+			}
+		}
+	}
+
+	#footer-login{
+		margin-top: -1em;
+		opacity: 0;
+		height: 0;
+		min-height: 0;
+		overflow: hidden;
+		pointer-events: none;
+		float: right;
+		@include vendor-prefix(transition, 'opacity .3s');
+
+		&.show{
+			height: auto;
+			overflow: visible;
+			opacity: 1;
+			pointer-events: all;
+		}
+
+		.actions{
+			margin-top: 1em;
+
+			#footer-signup-link{
+				position: relative;
+				top: .5em;
+				display: block;
+			}
+		}
+	}
+
+	#footer-logout{
+		opacity: 0;
+		height: 0;
+		min-height: 0;
+		overflow: hidden;
+		pointer-events: none;
+		float: right;
+		@include vendor-prefix(transition, 'opacity .3s');
+
+		&.show{
+			height: auto;
+			overflow: visible;
+			opacity: 1;
+			pointer-events: all;
+		}
+	}
+
+	> div:last-child{
+		background: lighten($dark, 10%);
+		text-align: center;
+		padding: 1em 0;
+		font-size: .7em;
+	}
+}

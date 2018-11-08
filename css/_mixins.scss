@@ -1,0 +1,37 @@
+@import "css/variables";
+@import "css/breakpoints";
+@import "css/grid";
+@import "css/grid-framework";
+
+@mixin vendor-prefix($name, $argument){
+	-webkit-#{$name}: #{$argument};
+	-ms-#{$name}: #{$argument};
+	-moz-#{$name}: #{$argument};
+	-o-#{$name}: #{$argument};
+	#{$name}: #{$argument};
+}
+
+@mixin flexbox(){
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+}
+
+@keyframes rotate_cw{
+	0%{
+		@include vendor-prefix(transform-origin, 'center');
+		@include vendor-prefix(transform, 'rotate(0)');
+	}
+
+	50%{
+		@include vendor-prefix(transform-origin, 'center');
+		@include vendor-prefix(transform, 'rotate(180deg)');
+	}
+
+	100%{
+		@include vendor-prefix(transform-origin, 'center');
+		@include vendor-prefix(transform, 'rotate(360deg)');
+	}
+}

@@ -1,0 +1,28 @@
+{% extends "base.twig" %}
+
+{% block microdata %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "AboutPage",
+	"@id": "{{ post.link }}",
+	"name": "{{ post.get_field('seo_title') ? post.get_field('seo_title') : (post.title ? post.title : title) }}",
+	"description": "{{ post.get_field('seo_description') ? post.get_field('seo_description') : post.post_content | excerpt(30) }}",
+	{% if post.thumbnail %}
+	"image": {
+		"@type": "ImageObject",
+		"url": "{{ post.get_field('seo_image') ? TimberImage(post.get_field('seo_image')).src('medium') : post.thumbnail.src('medium') }}",
+		"width": "{{ post.get_field('seo_image') ? TimberImage(post.get_field('seo_image')).sizes.medium.width : post.thumbnail.sizes.medium.width }}",
+		"height": "{{ post.get_field('seo_image') ? TimberImage(post.get_field('seo_image')).sizes.medium.height : post.thumbnail.sizes.medium.height }}"
+	},
+	{% endif %}
+	"url": "{{ post.link }}"
+}
+</script>
+{% endblock %}
+
+{% block content %}
+	<section class="post-type-{{ post.post_type }} {{ sidebar ? '':'container' }}">
+		{{ post.content }}
+	</section>
+{% endblock %}

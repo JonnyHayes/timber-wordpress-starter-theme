@@ -1,0 +1,119 @@
+#backdrop{
+	position: fixed;
+	z-index: 3;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow: scroll;
+	background: rgba(black, .7);
+	pointer-events: none;
+	opacity: 0;
+	-webkit-overflow-scrolling: touch;
+	@include vendor-prefix(transition, 'opacity .3s');
+
+	dialog[role="dialog"]{
+		width: 1140px;
+		min-height: 90vh;
+		margin: 5vh auto;
+		border: none;
+		position: relative;
+		background: white;
+		z-index: 11;
+		box-shadow: 10px 10px 50px rgba(black, .7);
+
+		&.content-modal{
+			#modal-content{
+				padding: 0 2em;
+
+				> *{
+					width: 100%;
+					float: none;
+					display: block;
+				}
+			}
+		}
+
+		&.image-modal{
+			width: auto;
+			max-width: 90%;
+			min-height: 0;
+			height: 90vh;
+			max-height: 90vh;
+
+			img{
+				max-height: 90vh;
+			}
+		}
+
+		&.signup-modal{
+			min-height: 0;
+			max-width: 30%;
+			padding: 0 4em 4em;
+
+			form{
+				.actions{
+					position: relative;
+					top: 1rem;
+				}
+			}
+		}
+
+		.loading{
+			height: 120px;
+			width: 120px;
+			margin: 0 auto;
+			display: block;
+			position: relative;
+			top: 35vh;
+			text-align: center;
+
+			+ div{
+				position: relative;
+				top: calc(35vh + 20px);
+				text-align: center;
+				color: $primary;
+				font-size: 36px;
+			}
+
+			@media(max-width: $phone){
+				top: 30vh;
+
+				+ div{
+					top: calc(30vh + 20px);
+				}
+			}
+		}
+
+		#modal-close{
+			position: absolute;
+			z-index: 10;
+			top: -10px;
+			right: -10px;
+			padding: 7px 9px;
+			height: 40px;
+			width: 40px;
+			background: #333;
+			border-radius: 50%;
+			border: 3px solid;
+			font-size: 20px;
+			line-height: 1;
+			font-weight: 900;
+			color: #fff;
+			cursor: pointer;
+		}
+
+		@media(max-width: $tablet){
+			width: 90%;
+		}
+	}
+
+	&.show{
+		opacity: 1;
+		pointer-events: all;
+
+		+ #modal{
+			display: block;
+		}
+	}
+}

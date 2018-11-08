@@ -1,0 +1,25 @@
+<div id="blog-comment-{{ comment.ID }}" class="blog-comment {{ comment.comment_type }}">
+	<div class="row">
+		<img class="col-md-1" src="{{ comment.author.avatar.abs_url }}" alt="{{ comment.author.name }}'s Avatar" width="50" height="50">
+		<div class="col-md-11">
+			<h5>{{ comment.author.name }}</h5>
+			<h6><time datetime="{{ comment.comment_date | date('Y-m-d\\TH:i') }}">{{ comment.comment_date | date('D M j, Y - g:i a') }}</time></h6>
+		</div>
+	</div>
+	<div>{{ comment.comment_content | wpautop }}</div>
+
+	<section>
+		<!-- child comments -->
+		{% if post.comments %}
+			<h4>{{ _e('Replies', 'mvnp_basic') }}</h4>
+			<div class="comments">
+				{% for cmt in comment.children %}
+					{% include "comment.twig" with {comment:cmt} %}
+				{% endfor %}
+			</div>
+		{% endif %}
+
+		<!-- comment form -->
+		{% include "comment-form.twig" %}
+	</section>
+</div>

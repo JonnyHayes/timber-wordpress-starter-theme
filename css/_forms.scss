@@ -1,0 +1,511 @@
+fieldset{
+	border: 1px solid $medium;
+	padding: 2ch;
+
+	legend{
+		padding: 0 1ch;
+	}
+}
+
+div.input-wrap{
+	position: relative;
+	//overflow: hidden;
+	padding-top: 1em;
+	margin-top: .5em;
+
+	&.overflow{
+		overflow: visible;
+	}
+
+	&:after{
+		content: '';
+		position: absolute;
+		background: white;
+		top: 1em;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 2.5em;
+		//border: 1px solid darken($light, 12%);
+		z-index: 0;
+	}
+
+	input:not([type=submit]):not([type=file]):not([type=radio]):not([type=checkbox]):not([type=color]):not([type=button]):not([type=image]):not([type=reset]):not([type=range]),
+	textarea{
+		width: 100%;
+		max-width: 100%;
+		border: 1px solid darken($light, 12%);
+		background: none;
+		position: relative;
+		top: 0;
+		left: 0;
+		z-index: 2;
+		padding: .6em;
+		height: 2.5em;
+		outline: 0;
+		font-size: inherit;
+		font-family: inherit;
+		border-radius: 0;
+		box-shadow: none;
+		-moz-appearance: textfield;
+
+		&::-webkit-input-placeholder{
+			color: transparent;
+			position: relative;
+			left: -5em;
+			-webkit-transition: color .3s, left .3s;
+		}
+
+		&::-moz-placeholder{
+			color: transparent;
+			position: relative;
+			left: -5em;
+			-moz-transition: color .3s, left .3s;
+		}
+
+		&::-ms-placeholder{
+			color: transparent;
+			position: relative;
+			left: -5em;
+			-ms-transition: color .3s, left .3s;
+		}
+
+		&::placeholder{
+			color: transparent;
+			position: relative;
+			left: -5em;
+			transition: color .3s, left .3s;
+		}
+
+		&::-webkit-outer-spin-button,
+		&::-webkit-inner-spin-button{
+			-webkit-appearance: none;
+			margin: 0;
+		}
+
+		&:-webkit-autofill{
+			border: 1px solid $light;
+		}
+
+		&::-webkit-datetime-edit,
+		&::-webkit-clear-button{
+			display: none;
+		}
+
+		&:disabled,
+		&[disabled='disable'],
+		&[disabled='true']{
+			opacity: .5;
+			cursor: not-allowed;
+		}
+
+		~ label{
+			position: absolute;
+			color: lighten($medium, 20%);
+			padding: .6em .6em .5em;
+			top: 1.01em;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			z-index: 1;
+			border-radius: 4px 4px 0 0;
+			line-height: 1;
+			white-space: nowrap;
+			overflow: hidden;
+			font-size: 1.1em;
+			@include vendor-prefix(transition, 'color .2s, top .2s');
+		}
+
+		~ .clear-input{
+			position: absolute;
+			top: 1.35em;
+			right: .3em;
+			color: darken($light, 10%);
+			background: white;
+			padding: 0 .3em;
+			cursor: pointer;
+			display: none;
+			z-index: 2;
+
+			&:hover{
+				color: $red;
+			}
+		}
+
+		&.hasValue{
+			~ label{
+				font-size: 45%;
+				padding: .15em .5em 0;
+				top: 0;
+				left: .2em;
+				bottom: 2em;
+				text-transform: uppercase;
+				color: darken($light, 10%);
+
+				&:before{
+					content: '';
+					margin: 0;
+					font-size: inherit;
+				}
+			}
+
+			&::-webkit-datetime-edit{
+				display: block;
+			}
+
+			&[required='true'],
+			&[required='required']{
+				~ label{
+					&:before{
+						content: '';
+						margin: 0;
+						font-size: inherit;
+					}
+				}
+			}
+
+			&.error,
+			&:not(:valid){
+				border: 1px solid $red;
+
+				~ label{
+					color: darken($light, 10%);
+				}
+			}
+
+			~ .clear-input{
+				display: block;
+			}
+		}
+
+		&:hover{
+			border-color: lighten($blue, 38%);
+		}
+
+		&.error{
+			border: 1px solid $red;
+
+			~ label{
+				color: $red;
+			}
+		}
+
+		&[required='true'],
+		&[required='required']{
+			~ label{
+				&:before{
+					content: '*';
+					color: lighten($red, 20%);
+					font-size: 2em;
+					line-height: 0;
+					margin-right: 2px;
+					position: relative;
+					top: .39em;
+					font-family: sans-serif;
+				}
+			}
+
+			&:focus{
+				&:before{
+					content: '';
+					margin: 0;
+					font-size: inherit;
+				}
+			}
+
+			&:valid{
+				border-color: darken($light, 12%);
+
+				&:focus{
+					border-color: lighten($blue, 28%);
+				}
+			}
+		}
+
+		&:focus{
+			border-color: lighten($blue, 28%);
+
+			&::-webkit-input-placeholder{
+				color: lighten($medium, 20%);
+				left: 0;
+			}
+
+			&::-moz-placeholder{
+				color: lighten($medium, 20%);
+				left: 0;
+			}
+
+			&::-ms-placeholder{
+				color: lighten($medium, 20%);
+				left: 0;
+			}
+
+			&::placeholder{
+				color: lighten($medium, 20%);
+				left: 0;
+			}
+
+			~ label{
+				font-size: 45%;
+				padding: .15em .5em 0;
+				z-index: 1;
+				top: 0;
+				left: .2em;
+				bottom: 2em;
+				text-transform: uppercase;
+				color: lighten($blue, 28%);
+
+				&:before{
+					content: '';
+					margin: 0;
+					font-size: inherit;
+				}
+			}
+		}
+
+		@media(max-width: $phone){
+			font-size: 1em;
+		}
+	}
+
+	input[type='date']::-webkit-calendar-picker-indicator{
+		display: none;
+	}
+
+	textarea{
+		border-radius: 0;
+		height: 11em;
+		resize: none;
+		line-height: 1.3;
+		font-size: 1em;
+	}
+
+	label{
+		color: lighten($medium, 20%);
+		font-size: .9em;
+		cursor: pointer;
+	}
+
+	> label{
+		&:first-child{
+			position: static;
+			margin: 0 0 .4em;
+			padding: 0;
+			display: block;
+			color: $dark;
+		}
+	}
+
+	+ .btn{
+		vertical-align: top;
+		top: 1.5em;
+
+		&:active{
+			top: calc(1.5em + 2px);
+		}
+	}
+}
+
+label{
+	input[type='checkbox'],
+	input[type='radio']{
+		position: relative;
+		top: -1px;
+		margin-right: .4em;
+	}
+}
+
+select{
+	border: 1px solid darken($light, 18%);
+	white-space: normal;
+	border-radius: 4px;
+	font-size: 1em;
+	line-height: 1.1;
+	background: white; /* Old browsers */
+	//stylelint-disable
+	background: url(images/select-arrow-gray.png), -moz-linear-gradient(to bottom, white 0%, darken($light, 4%) 100%); /* FF3.6+ */
+	background: url(images/select-arrow-gray.png), -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, darken($light, 4%))); /* Chrome,Safari4+ */
+	background: url(images/select-arrow-gray.png), -webkit-linear-gradient(to bottom, white 0%, darken($light, 4%) 100%); /* Chrome10+,Safari5.1+ */
+	background: url(images/select-arrow-gray.png), -o-linear-gradient(to bottom, white 0%, darken($light, 4%) 100%); /* Opera 11.10+ */
+	background: url(images/select-arrow-gray.png), -ms-linear-gradient(to bottom, white 0%, darken($light, 4%) 100%); /* IE10+ */
+	background: url(images/select-arrow-gray.png), linear-gradient(to bottom, white 0%, darken($light, 4%) 100%); /* W3C */
+	//stylelint-enable
+	filter: progid:dximagetransform.microsoft.gradient(startColorstr='white', endColorstr='darken($light, 4%)', GradientType=0); /* IE6-9 */
+	background-repeat: no-repeat;
+	background-position: -50px -50px;
+
+	&[required='true'],
+	&[required='required']{
+		&:valid{
+			border-color: darken($light, 12%);
+		}
+	}
+
+	&:disabled,
+	&[disabled='disable'],
+	&[disabled='true']{
+		opacity: .5;
+		cursor: not-allowed;
+	}
+
+	&:focus{
+		outline: 1px solid lighten($blue, 28%);
+		outline-offset: 1px;
+	}
+
+	@media screen and (-webkit-min-device-pixel-ratio: 0){
+		-webkit-appearance: none;
+		background-position: right center;
+		padding: 6px 26px 6px 5px;
+	}
+
+	@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none){
+		background-position: right center;
+		padding-right: 30px;
+
+		&::-ms-expand{
+			display: none;
+		}
+	}
+}
+
+@-moz-document url-prefix(){
+	select{
+		/* for Firefox */
+		-moz-appearance: none;
+		text-indent: .01px;
+		text-overflow: '';
+		background: url(../images/select-arrow-gray.png), linear-gradient(to bottom, white 0%, darken($light, 4%) 100%); /* W3C */
+		background-repeat: no-repeat;
+		background-position: 101%;
+		padding: 5px 5px 6px;
+
+		&:-moz-focusring{
+			color: transparent;
+			text-shadow: 0 0 0 black;
+		}
+
+		option{
+			background: white;
+			padding: 0 5px;
+		}
+	}
+}
+
+/**
+ * This one's a little complicated, but its super cool. Just be sure the lable is associated with the input, or it wont work. The HTML looks like this:
+ *	div.toggle-switch
+ *		input[type="checkbox"]#input-id
+ *		label[for="input-id"]
+ *			span.toggle-background
+ *			span.toggle-handle
+ */
+
+.toggle-switch{
+	position: relative;
+	width: 4em;
+	display: inline-block;
+	vertical-align: middle;
+	@include vendor_prefix(user-select, 'none');
+
+	input[type="checkbox"]{
+		display: none;
+
+		&:checked{
+			+ label{
+				.toggle-background{
+					margin-left: 0;
+
+					&:after{
+						background: $green;
+					}
+				}
+
+				.toggle-handle{
+					right: .28em;
+				}
+			}
+		}
+
+		&:not(:checked){
+			+ label{
+				.toggle-background{
+					&:before{
+						background: $red;
+					}
+				}
+			}
+		}
+	}
+
+	label{
+		display: block;
+		overflow: hidden;
+		cursor: pointer;
+		border-radius: 1.5em;
+	}
+
+	&.disabled{
+		opacity: .333;
+
+		label{
+			cursor: not-allowed;
+		}
+	}
+
+	.toggle-background{
+		width: calc(200% - 1.5em);
+		margin-left: calc(1.5em - 100%);
+		display: block;
+		line-height: 0;
+		text-indent: -999px;
+		@include vendor_prefix(transition, 'margin 0.1s linear 0s');
+
+		&:after,
+		&:before{
+			float: left;
+			width: 50%;
+			height: 1.9em;
+			padding: 0;
+			font-size: 1em;
+			color: white;
+			line-height: 2;
+			text-indent: 0;
+		}
+
+		&:before{
+			content: "ON";
+			padding-left: .8em;
+			background: $green;
+			border-radius: 1.5em 0 0 1.5em;
+			color: white;
+			font-size: .9em;
+		}
+
+		&:after{
+			content: "OFF";
+			padding-right: .5em;
+			background-color: $red;
+			color: white;
+			border-radius: 0 1.5em 1.5em 0;
+			text-align: right;
+			font-size: .9em;
+		}
+	}
+
+	.toggle-handle{
+		line-height: 0;
+		text-indent: -999px;
+		width: 1.4em;
+		margin: -.14em;
+		border: none;
+		display: block;
+		position: absolute;
+		top: .285em;
+		bottom: .285em;
+		right: 2.53em;
+		background-color: white;
+		border-radius: 50%;
+		@include vendor-prefix(transition, 'all 0.1s linear 0s');
+	}
+}

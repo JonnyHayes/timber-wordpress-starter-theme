@@ -1,0 +1,84 @@
+.notifications{
+	position: fixed;
+	top: 2.5em;
+	right: 3.5em;
+	max-width: 33%;
+	z-index: 4;
+	line-height: 1.3;
+	color: $medium;
+
+	@media(max-width: $tablet){
+		max-width: 50%;
+	}
+
+	@media(max-width: $phone){
+		right: 1em;
+		max-width: calc(100% - 2em);
+	}
+
+	.entry{
+		opacity: 0;
+		background: $blue;
+		margin-bottom: 1.5em;
+		position: relative;
+		font-size: 1em;
+		float: right;
+		clear: both;
+		@include vendor-prefix(transition, 'opacity .3s');
+
+		.notification-icon{
+			display: inline-block;
+			color: white;
+			text-align: center;
+			font-size: 1.5em;
+			font-weight: 900;
+			vertical-align: top;
+			margin-top: .6em;
+			width: 2.5em;
+		}
+
+		.message-content{
+			display: inline-block;
+			background: white;
+			padding: 1em 2em 1em 1em;
+			border: 2px solid $blue;
+			border-left: none;
+			width: calc(100% - 3.75em);
+
+			.notification-close{
+				margin-top: .5em;
+				font-size: .45em;
+				text-transform: uppercase;
+				color: $light - 60;
+			}
+		}
+
+		&:last-child{
+			margin-bottom: 0;
+		}
+
+		&.error{
+			background: $red;
+
+			.notification-icon{
+				margin-top: .8em;
+			}
+
+			.message-content{
+				border-color: $red;
+			}
+		}
+
+		&.success{
+			background: $green;
+
+			.message-content{
+				border-color: $green;
+			}
+		}
+
+		&.active{
+			opacity: 1;
+		}
+	}
+}

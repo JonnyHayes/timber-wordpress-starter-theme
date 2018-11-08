@@ -1,0 +1,22 @@
+{% extends "base.twig" %}
+
+{% macro getChildren(parent) %}
+	<li>
+		<a href="{{ parent.link }}" title="{{ parent }}">{{ parent }}</a>
+		{% if parent.children | length %}
+			<ul>
+				{% for child in parent.children %}
+					{{ _self.getChildren(child) }}
+				{% endfor %}
+			</ul>
+		{% endif %}
+	</li>
+{% endmacro %}
+
+{% block content %}
+	<ul>
+		{% for post in posts %}
+			{{ _self.getChildren(post) }}
+		{% endfor %}
+	</ul>
+{% endblock %}

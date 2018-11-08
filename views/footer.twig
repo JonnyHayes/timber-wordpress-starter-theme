@@ -1,0 +1,67 @@
+<div class="container">
+	<h3><a href="{{ site.url }}" rel="home">{{ site.name }}</a></h3>
+	<div class="row clearfix">
+		<nav role="navigation" class="col-sm-6 col-md-4 col-lg-2">
+			{% include "menu.twig" with {'menu': footer_menu.get_items} %}
+		</nav><!-- #nav -->
+		<nav class="col-sm-6 col-md-4 col-lg-2">
+			<ul>
+				{% if theme.theme_mods.phone_number %}
+					<li><a href="tel:{{ theme.theme_mods.phone_number | replace({' ':''}) }}" title="{{ _e('Call us at ', 'mvnp_basic') ~ theme.theme_mods.phone_number }}">{{ theme.theme_mods.phone_number }}</a></li>
+				{% endif %}
+				{% if theme.theme_mods.email %}
+					<li><a href="mailto:{{ theme.theme_mods.email }}" title="{{ _e('Email us at ', 'mvnp_basic') ~ theme.theme_mods.email }}">{{ theme.theme_mods.email }}</a></li>
+				{% endif %}
+				{% if theme.theme_mods.street_address_1 and theme.theme_mods.city and theme.theme_mods.state and theme.theme_mods.postal %}
+					<li><address><a href="https://maps.google.com/maps/place/{{ (theme.theme_mods.street_address_1 ~ (theme.theme_mods.street_address_2 ? ' ' ~ theme.theme_mods.street_address_2) ~ ' ' ~ theme.theme_mods.city ~ ' ' ~ theme.theme_mods.state ~ ' ' ~ theme.theme_mods.postal) | url_encode }}" target="_blank" rel="noopener">
+						{{ theme.theme_mods.street_address_1 ~ (theme.theme_mods.street_address_2 ? ', ' ~ theme.theme_mods.street_address_2) }}<br>
+						{{ theme.theme_mods.city ~ ', ' ~ theme.theme_mods.state ~ ' ' ~ theme.theme_mods.postal }}
+					</a></address></li>
+				{% endif %}
+				<li>
+					{% if theme.theme_mods.facebook_link %}
+						<a class="social-icon" href="{{ theme.theme_mods.facebook_link }}" target="_blank" rel="noopener" title="{{ _e('Facebook', 'mvnp_basic') }}" >&#xf308;</a>
+					{% endif %}
+					{% if theme.theme_mods.twitter_link %}
+						<a class="social-icon" href="{{ theme.theme_mods.twitter_link }}" target="_blank" rel="noopener" title="{{ _e('Twitter', 'mvnp_basic') }}">&#xf304;</a>
+					{% endif %}
+					{% if theme.theme_mods.gplus_link %}
+						<a class="social-icon" href="{{ theme.theme_mods.gplus_link }}" target="_blank" rel="noopener" title="{{ _e('Google+', 'mvnp_basic') }}">&#xf0d4;</a>
+					{% endif %}
+					{% if theme.theme_mods.instagram_link %}
+						<a class="social-icon" href="{{ theme.theme_mods.instagram_link }}" target="_blank" rel="noopener" title="{{ _e('Instagram', 'mvnp_basic') }}">&#xf16d;</a>
+					{% endif %}
+				</li>
+			</ul>
+		</nav>
+		{% if can_login %}
+			<form id="footer-login" class="col-sm-12 col-md-4 col-lg-3 {{ not is_logged_in ? 'show' }}" method="post" action="{{ site.url | request_uri }}/" target="_top" aria-live="polite">
+				<div class="input-wrap">
+					<input id="user_email" name="user_email" type="text">
+					<label for="user_email">{{ _e('Username/Email', 'mvnp_basic') }}</label>
+				</div>
+				<div class="input-wrap">
+					<input id="user_password" name="user_password" type="password">
+					<label for="user_password">{{ _e('Password', 'mvnp_basic') }}</label>
+				</div>
+				<div class="actions row clearfix">
+					<div class="col-sm-6">
+						<label><input id="user_remember" name="user_remember" type="checkbox" aria-checked="false">{{ _e('Remember Me', 'mvnp_basic') }}</label>
+						<a id="footer-signup-link" href="#" title="{{ _e('Sign up now!', 'mvnp_basic') }}">{{ _e('Sign up now!', 'mvnp_basic') }}</a>
+					</div>
+					<button class="col-sm-6 btn btn-inverted" title="{{ _e('Log in', 'mvnp_basic') }}" type="submit">{{ _e('Log in', 'mvnp_basic') }}</button>
+				</div>
+			</form>
+			<form id="footer-logout" class="col-sm-12 col-md-4 col-lg-3 {{ is_logged_in ? 'show' }}" method="post" action="{{ site.url | request_uri }}/" target="_top" aria-live="polite">
+				<h3 id="footer-username">{{ __('Welcome back, %s!', 'mvnp_basic') | format(user.display_name) }}</h3>
+				<input id="user_logout" name="user_logout" type="hidden" value="1">
+				<button class="btn btn-inverted" title="{{ _e('Log out', 'mvnp_basic') }}" type="submit" tabindex="-1">{{ _e('Log out', 'mvnp_basic') }}</button>
+			</form>
+		{% endif %}
+	</div>
+</div>
+<div>
+	<div class="container">
+		{{ _e('Copyright', 'mvnp_basic') }} {{ 'now'|date('Y') }}
+	</div>
+</div>

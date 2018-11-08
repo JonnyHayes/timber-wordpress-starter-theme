@@ -1,0 +1,77 @@
+<head>
+	<meta charset="{{ site.charset }}">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="charset" content="{{ site.charset }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>
+	{% if post.get_field('seo_title') %}
+		{{ post.get_field('seo_title') }} | {{ site.name }}
+	{% elseif post.title %}
+		{{ post.title }} | {{ site.name }}
+	{% elseif wp_title %}
+		{{ wp_title }} | {{ site.name }}
+	{% else %}
+		{{ site.name }}
+	{% endif %}
+	</title>
+
+	<meta name="description" content="{{ post.get_field('seo_description') ? post.get_field('seo_description') : (post.post_content ? post.post_content | excerpt(30) : site.description) }}">
+	<meta name="author" content="Chris Malkus">
+	<meta name="creator" content="MVNP">
+	<meta name="application-name" content="{{ site.name }}">
+
+	<!-- Facebook OpenGraph -->
+	<meta property="og:title" content="{{ post.get_field('facebook_title') ? post.get_field('facebook_title') : post.title }}">
+	<meta property="og:description" content="{{ post.get_field('facebook_description') ? post.get_field('facebook_description') : post.post_content | excerpt(30) }}">
+	<meta property="og:type" content="{{ post.type }}">
+	{% if post.get_field('facebook_image') or post.thumbnail %}
+	<meta property="og:image" content="{{ post.get_field('facebook_image') ? TimberImage(post.get_field('facebook_image')).src('large') : post.thumbnail.src('large') }}">
+	<meta property="og:image:width" content="{{ post.get_field('facebook_image') ? TimberImage(post.get_field('facebook_image')).sizes.large.width : post.thumbnail.sizes.large.width }}">
+	<meta property="og:image:height" content="{{ post.get_field('facebook_image') ? TimberImage(post.get_field('facebook_image')).sizes.large.height : post.thumbnail.sizes.large.height }}">
+	{% endif %}
+	<meta property="og:url" content="{{ post.link }}">
+	<meta property="og:site_name" content="{{ site.name }}">
+	<meta property="og:locale" content="{{ site.language | replace({'-': '_'}) }}">
+	{% if available_languages %}
+		{% for key, name in available_languages %}
+			{% if site.language != key %}
+				<meta property="og:locale:alternate" content="{{ key | replace({'-': '_'}) }}">
+			{% endif %}
+		{% endfor %}
+		{% if site.language != 'en-US' %}
+			<meta property="og:locale:alternate" content="en_US">
+		{% endif %}
+	{% endif %}
+
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:site" content="@{{ theme.theme_mods.twitter_link ? theme.theme_mods.twitter_link | split('/') | last : 'mvnp' }}">
+	<meta name="twitter:title" content="{{ post.get_field('twitter_title') ? post.get_field('twitter_title') : post.title }}">
+	<meta name="twitter:description" content="{{ post.get_field('twitter_description') ? post.get_field('twitter_description') : post.post_content | excerpt(30) }}">
+	{% if post.thumbnail %}
+	<meta name="twitter:image" content="{{ post.get_field('twitter_image') ? TimberImage(post.get_field('twitter_image')).src('medium') : post.thumbnail.src }}">
+	{% endif %}
+
+	<link href="https://opensource.org/licenses/ISC" rel="license">
+	<link href="{{ site.pingback_url }}" rel="pingback">
+	<link href="{{ site.theme.link }}/manifest.json" rel="manifest">
+
+	<!-- Favicons generated with www.favicon-generator.org -->
+	<link href="{{ site.theme.link }}/images/favicons/apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57">
+	<link href="{{ site.theme.link }}/images/favicons/apple-icon-60x60.png" rel="apple-touch-icon" sizes="60x60">
+	<link href="{{ site.theme.link }}/images/favicons/apple-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
+	<link href="{{ site.theme.link }}/images/favicons/apple-icon-76x76.png" rel="apple-touch-icon" sizes="76x76">
+	<link href="{{ site.theme.link }}/images/favicons/apple-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
+	<link href="{{ site.theme.link }}/images/favicons/apple-icon-120x120.png" rel="apple-touch-icon" sizes="120x120">
+	<link href="{{ site.theme.link }}/images/favicons/apple-icon-144x144.png" rel="apple-touch-icon" sizes="144x144">
+	<link href="{{ site.theme.link }}/images/favicons/apple-icon-152x152.png" rel="apple-touch-icon" sizes="152x152">
+	<link href="{{ site.theme.link }}/images/favicons/apple-icon-180x180.png" rel="apple-touch-icon" sizes="180x180">
+	<link href="{{ site.theme.link }}/images/favicons/android-icon-192x192.png" rel="icon" type="image/png" sizes="192x192">
+	<link href="{{ site.theme.link }}/images/favicons/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32">
+	<link href="{{ site.theme.link }}/images/favicons/favicon-96x96.png" rel="icon" type="image/png" sizes="96x96">
+	<link href="{{ site.theme.link }}/images/favicons/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="{{ site.theme.link }}/images/favicons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	{{ function('wp_head') }}
